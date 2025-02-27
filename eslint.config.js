@@ -16,6 +16,7 @@ export default [
   {
     rules: {
       semi: ['error', 'always'],
+      'vue/multi-word-component-names': 'off',
     },
   },
 ];
