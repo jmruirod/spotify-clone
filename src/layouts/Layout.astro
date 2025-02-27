@@ -1,5 +1,6 @@
 ---
 import AsideMenu from "@/components/AsideMenu.astro";
+import Player from "@/components/Player.vue";
 import "@/styles/global.css";
 import { ViewTransitions } from "astro:transitions";
 ---
@@ -20,7 +21,9 @@ import { ViewTransitions } from "astro:transitions";
         <AsideMenu />
       </aside>
       <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto"><slot /></main>
-      <footer class="[grid-area:player] min-h-[100px] bg-blue-200">PLAYER</footer>
+      <footer class="[grid-area:player] min-h-[100px]">
+        <Player client:load transition:name="media-player" transition:persist />
+      </footer>
     </div>
   </body>
 </html>
