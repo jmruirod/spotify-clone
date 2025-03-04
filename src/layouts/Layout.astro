@@ -20,8 +20,10 @@ import { ViewTransitions } from "astro:transitions";
       <aside class="[grid-area:aside] flex flex-col overflow-y-auto">
         <AsideMenu />
       </aside>
-      <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto"><slot /></main>
-      <footer class="[grid-area:player] min-h-[100px]">
+      <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
+        <slot />
+      </main>
+      <footer class="[grid-area:player]">
         <Player client:load transition:name="media-player" transition:persist />
       </footer>
     </div>
