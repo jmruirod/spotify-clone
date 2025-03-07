@@ -18,9 +18,8 @@ const handleClick = () => {
   fetch(`/api/playlist/get?id=${id}`).then((response) => {
     response.json().then((data) => {
       const { songs, playlist } = data;
-
-      playerStore.isPlaying = true;
       playerStore.currentMusic = { songs, playlist, song: songs[0] };
+      playerStore.isPlaying = true;
       console.log(songs, playlist);
     });
   });
@@ -28,7 +27,10 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button @click="handleClick" class="rounded-full bg-green-500 p-3 text-black">
+  <button
+    @click="handleClick"
+    class="rounded-full bg-green-500 p-3 text-black hover:scale-110 transition hover:bg-green-400"
+  >
     <Play v-if="!isPlayingPlaylist" />
     <Pause v-else />
   </button>

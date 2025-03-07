@@ -1,33 +1,53 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 
-const backgroundSize = ref(`100% 100%`);
-const modelValue = defineModel<number>();
+const modelValue = defineModel<number>({ required: true });
 const rangeInput = ref<HTMLInputElement>();
+const backgroundSize = ref(`${modelValue.value} 100%`);
 
 defineProps<{
+  width?: string;
+  paddingTop?: string;
+  paddingBottom?: string;
   min: number;
   max: number;
 }>();
 
+const emit = defineEmits(["update:modelValue", "onSliderRelease", "onSliderMouseDown"]);
+
+const handleSliderChange = () => {
+  emit("update:modelValue", parseInt(rangeInput.value!.value!));
+};
+
+const handleSliderMouseDown = (event: Event) => {
+  emit("onSliderMouseDown", event);
+};
+
+const handleSliderRelease = (event: Event) => {
+  emit("onSliderRelease", event);
+};
+
 watch(modelValue, (newModelValue) => {
   const minValue = parseInt(rangeInput.value!.min);
   const maxValue = parseInt(rangeInput.value!.max);
-  const currentValue = newModelValue;
-  backgroundSize.value = `${((currentValue! - minValue) / (maxValue - minValue)) * 100}% 100%`;
+  backgroundSize.value = `${((newModelValue! - minValue) / (maxValue - minValue)) * 100}% 100%`;
 });
 </script>
 
 <template>
-  <div class="flex justify-center items-center gap-x-2">
-    <slot name="before" id="before"></slot>
+  <div :class="`flex justify-center items-center gap-x-2 ${paddingTop} ${paddingBottom}`">
+    <slot name="before"></slot>
     <input
       ref="rangeInput"
       type="range"
-      v-model="modelValue"
+      :value="modelValue"
       :min="min"
       :max="max"
       :style="{ backgroundSize }"
+      :class="width"
+      @input="handleSliderChange"
+      @mousedown="handleSliderMouseDown($event)"
+      @mouseup="handleSliderRelease($event)"
     />
     <slot name="after"></slot>
   </div>
@@ -41,7 +61,6 @@ input[type="range"] {
   height: calc(var(--spacing) * 1.3);
   border-radius: var(--radius-lg);
   background-image: linear-gradient(white, white);
-  /* background-size: 100% 100%; */
   background-repeat: no-repeat;
   cursor: pointer;
 }
