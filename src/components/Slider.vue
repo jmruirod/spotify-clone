@@ -11,6 +11,7 @@ defineProps<{
   paddingBottom?: string;
   min: number;
   max: number;
+  isHovering?: boolean;
 }>();
 
 const emit = defineEmits(["update:modelValue", "onSliderRelease", "onSliderMouseDown"]);
@@ -44,7 +45,8 @@ watch(modelValue, (newModelValue) => {
       :min="min"
       :max="max"
       :style="{ backgroundSize }"
-      :class="width"
+      :class="[width, { hover: isHovering }]"
+      :hover="isHovering"
       @input="handleSliderChange"
       @mousedown="handleSliderMouseDown($event)"
       @mouseup="handleSliderRelease($event)"
@@ -58,20 +60,15 @@ input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: var(--color-zinc-800);
-  height: calc(var(--spacing) * 1.3);
+  height: calc(var(--spacing) * 1.2);
   border-radius: var(--radius-lg);
   background-image: linear-gradient(white, white);
   background-repeat: no-repeat;
   cursor: pointer;
 }
 
-input[type="range"]:hover {
-  background-image: linear-gradient(var(--color-emerald-600), var(--color-emerald-600));
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-}
-
-.hover {
+input[type="range"]:hover,
+input[type="range"].hover {
   background-image: linear-gradient(var(--color-emerald-600), var(--color-emerald-600));
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -81,22 +78,16 @@ input[type="range"]:hover {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* clear browser thumb */
   appearance: none;
-  width: calc(var(--spacing) * 1.3);
-  height: calc(var(--spacing) * 1.3);
+  width: calc(var(--spacing) * 1.2);
+  height: calc(var(--spacing) * 1.2);
   background: white;
   border-radius: calc(infinity * 1px);
 }
 
-input[type="range"]:hover::-webkit-slider-thumb {
-  width: 0.8rem;
-  height: 0.8rem;
-  background: white;
-  border-radius: 50%;
-}
-
-.hover::-webkit-slider-thumb {
-  width: 0.8rem;
-  height: 0.8rem;
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"].hover::-webkit-slider-thumb {
+  width: 0.7rem;
+  height: 0.7rem;
   background: white;
   border-radius: 50%;
 }
@@ -105,22 +96,16 @@ input[type="range"]:hover::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
   appearance: none;
   border: none;
-  width: calc(var(--spacing) * 1.3);
-  height: calc(var(--spacing) * 1.3);
+  width: calc(var(--spacing) * 1.2);
+  height: calc(var(--spacing) * 1.2);
   background: white;
   border-radius: calc(infinity * 1px);
 }
 
-input[type="range"]:hover::-moz-range-thumb {
-  width: 0.8rem;
-  height: 0.8rem;
-  background: white;
-  border-radius: 50%;
-}
-
-.hover::-moz-range-thumb {
-  width: 0.8rem;
-  height: 0.8rem;
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"].hover::-moz-range-thumb {
+  width: 0.7rem;
+  height: 0.7rem;
   background: white;
   border-radius: 50%;
 }

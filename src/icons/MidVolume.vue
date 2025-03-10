@@ -3,8 +3,8 @@
     role="presentation"
     aria-label="Volumen medio"
     aria-hidden="false"
-    height="24"
-    width="24"
+    height="16"
+    width="16"
     viewBox="0 0 16 16"
     fill="currentColor"
   >
