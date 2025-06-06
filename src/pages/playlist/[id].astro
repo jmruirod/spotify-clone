@@ -3,6 +3,7 @@ import MusicsTable from "@/components/MusicsTable.astro";
 import Layout from "@/layouts/Layout.astro";
 import { allPlaylists, songs } from "@/lib/data";
 import { getPlaylistTotalDuration, getPlaylistTotalDurationFormatted } from "@/composable/useTime";
+import CardPlayButton from "@/components/CardPlayButton.vue";
 
 const { id } = Astro.params;
 
@@ -15,7 +16,8 @@ const totalDurationFormatted = getPlaylistTotalDurationFormatted(totalDuration);
 <Layout>
   <div
     id="playlist-container"
-    class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+    class="relative flex flex-col h-full overflow-x-hidden"
+    :class=`bg-[#fff]`
     transition:name=`playlist ${id} box`
   >
     <!-- PageHeader -->
@@ -24,7 +26,7 @@ const totalDurationFormatted = getPlaylistTotalDurationFormatted(totalDuration);
         <img
           src={playlist?.cover}
           alt={`Cover of ${playlist?.title}`}
-          class="w-full h-full shadow-lg"
+          class="w-full h-full shadow-lg hover:scale-105 transition"
           transition:name=`playlist ${playlist?.id} image`
         />
       </picture>
@@ -53,10 +55,13 @@ const totalDurationFormatted = getPlaylistTotalDurationFormatted(totalDuration);
       </div>
     </header>
 
-    <div class="relative z-10 px-6 pt-10"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-10"></div>
-    <section class="p-6">
+    <div class="p-6">
+      <CardPlayButton client:visible id={id!} />
+    </div>
+
+    <section class="relative z-10 px-6 pb-6">
       <MusicsTable songs={playlistSongs} />
     </section>
+    <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-10"></div>
   </div>
 </Layout>

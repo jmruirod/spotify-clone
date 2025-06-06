@@ -15,6 +15,11 @@ const handleClick = () => {
     return;
   }
 
+  if (playerStore.currentMusic.playlist?.id === id) {
+    playerStore.isPlaying = true;
+    return;
+  }
+
   fetch(`/api/playlist/get?id=${id}`).then((response) => {
     response.json().then((data) => {
       const { songs, playlist } = data;
