@@ -2,18 +2,18 @@
 import AsideMenu from "@/components/AsideMenu.astro";
 import Player from "@/components/Player.vue";
 import "@/styles/global.css";
-import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="fade">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="astro-view-transitions-enabled" content="true" />
+    <meta name="astro-view-transitions-fallback" content="none" />
     <title>Spotify Clone</title>
-    <ViewTransitions fallback="none" />
   </head>
   <body>
     <div id="app" class="relative h-screen p-2 gap-2">
